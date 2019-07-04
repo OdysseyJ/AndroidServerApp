@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "8110158369",
+    "firebase_url": "https://bottomnavigation-bd29c.firebaseio.com",
+    "project_id": "bottomnavigation-bd29c",
+    "storage_bucket": "bottomnavigation-bd29c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8110158369:android:16cc89bb6297b057",
+        "android_client_info": {
+          "package_name": "com.example.bottomnavigation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "8110158369-ob7bebhtbo6h21pla1cjrf4cp4euh59u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz2F8evltAOLEjsK7T_xikYjDMkcjaA9Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "8110158369-ob7bebhtbo6h21pla1cjrf4cp4euh59u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
