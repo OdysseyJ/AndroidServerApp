@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ImageView imageview;
 
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        public void onItemClick(View view, int position);
+    }
+
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView1 ;
@@ -27,6 +34,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             textView1 = itemView.findViewById(R.id.textview_recyclerview_title);
             image = itemView.findViewById(R.id.imageview_recyclerview_image);
         }
+
+        public ImageView getImageView() {
+            return image;
+        }
     }
 
     // 생성자에서 데이터 리스트 객체를 전달받음.
@@ -34,7 +45,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         mData = list ;
     }
 
-    RecyclerViewAdapter() {
+    RecyclerViewAdapter(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
@@ -56,6 +68,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.textView1.setText(text.getName()) ;
         Bitmap image = mData.get(position).getImage();
         holder.image.setImageBitmap(image);
+
+        RecyclerViewAdapter.ViewHolder vholder = (RecyclerViewAdapter.ViewHolder)holder;
+
+        vholder.getImageView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClick(v, position);
+            }
+        });
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.

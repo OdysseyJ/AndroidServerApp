@@ -70,7 +70,12 @@ public class PageTwo extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2)) ;
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        adapter = new RecyclerViewAdapter();
+        adapter = new RecyclerViewAdapter(new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                System.out.println("Selected");
+            }
+        });
         recyclerView.setAdapter(adapter) ;
 
         addButton = (Button) fragment_two.findViewById(R.id.addbutton);
