@@ -21,7 +21,6 @@ var port = process.env.PORT || 8080;
 // [CONFIGURE ROUTER]
 app.use('/api/contact', function(req, res, next){
   require('./routes/index')(app, Contact);
-  console.log('aaaaaaaaaaaaa');
   next();
 });
 app.use('/api/gallery', function(req, res, next){

@@ -14,6 +14,7 @@ module.exports = function(app, Contact)
       var contact = new Contact();
       contact.name = req.body.name;
       contact.phonenum = req.body.phonenum;
+      contact.photo = req.body.photo;
 
       //저장시키기
       contact.save(function(err){

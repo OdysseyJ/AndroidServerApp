@@ -14,8 +14,6 @@ module.exports = function(app, Photo)
       var photo = new Photo();
       photo.name = req.body.name;
       photo.photo = req.body.photo;
-      console.log ('name :'+req.body.name);
-      console.log ('photo :'+req.body.photo);
 
       //저장시키기
       photo.save(function(err){
