@@ -1,11 +1,13 @@
 package com.example.restapi;
 
+import android.graphics.Bitmap;
+
 public class Item {
 
     String name;
-    int image;
+    Bitmap image;
 
-    public Item(String name, int image) {
+    public Item(String name, Bitmap image) {
         super();
         this.name = name;
         this.image = image;
@@ -17,11 +19,11 @@ public class Item {
     public void setName(String name){
         this.name = name;
     }
-    public int getImage(){
+    public Bitmap getImage(){
         return image;
     }
 
-    public void setImage(int image){
+    public void setImage(Bitmap image){
         this.image = image;
     }
 

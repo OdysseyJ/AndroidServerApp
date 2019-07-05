@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/imageview_recyclerview_image"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_width="404dp"
+        android:layout_height="354dp"
         android:layout_above="@+id/textview_recyclerview_title"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="5dp"

@@ -12,4 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <Button
+        android:id="@+id/addbutton"
+        android:layout_width="99dp"
+        android:layout_height="96dp"
+        android:layout_gravity="bottom|right|center_vertical"
+        android:text="Button" />
+
 </FrameLayout>

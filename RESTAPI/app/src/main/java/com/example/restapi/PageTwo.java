@@ -1,10 +1,14 @@
 package com.example.restapi;
 
 
+import android.app.Activity;
 import android.content.ClipData;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -14,12 +18,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -40,27 +48,17 @@ import java.util.ArrayList;
  */
 public class PageTwo extends Fragment {
 
-
     public PageTwo() {
         // Required empty public constructor
     }
 
-    RecyclerView recyclerView;
+    // Recyclreview 어댑터
     RecyclerViewAdapter adapter;
-    GridLayoutManager layoutManager;
 
-    ArrayList<Item> list = new ArrayList<Item>() {{
-        add(new Item("image1",R.drawable.image1));
-        add(new Item("image2",R.drawable.image2));
-        add(new Item("image3",R.drawable.image3));
-        add(new Item("image4",R.drawable.image4));
-        add(new Item("image5",R.drawable.image5));
-        add(new Item("image6",R.drawable.image6));
-        add(new Item("image7",R.drawable.image7));
-        add(new Item("image8",R.drawable.image8));
-        add(new Item("image9",R.drawable.image9));
-        add(new Item("image10",R.drawable.image10));
-    }};
+    // Buttons
+    private Button addButton;
+
+    ArrayList<Item> items = new ArrayList<Item>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,10 +70,22 @@ public class PageTwo extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2)) ;
 
         // 리사이클러뷰에 SimpleTextAdapter 객체 지정.
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(list);
+        adapter = new RecyclerViewAdapter();
         recyclerView.setAdapter(adapter) ;
 
-        //new JSONPostTask().execute("http://143.248.36.59:8080/api/gallery/add");
+        addButton = (Button) fragment_two.findViewById(R.id.addbutton);
+        addButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.addbutton:
+                        Intent intent = new Intent(getActivity(),CustomDialog.class);
+                        startActivity(intent);
+                        break;
+                }
+            }
+        });
+//        new JSONPostTask().execute("http://143.248.36.59:8080/api/gallery/add");
         new JSONGetTask().execute("http://143.248.36.59:8080/api/gallery/all");
 
         return fragment_two;
@@ -193,8 +203,24 @@ public class PageTwo extends Fragment {
 
             super.onPostExecute(result);
 
-            System.out.println(result);
+            try {
+                JSONTokener root = new JSONTokener(result);
 
+                JSONArray temp = (JSONArray) root.nextValue();
+                for (int i = 0; i < temp.length(); i++) {
+                    System.out.println(temp.getJSONObject(i));
+                    JSONObject jsonObject1 = temp.getJSONObject(i);
+                    String value1 = jsonObject1.getString("name");
+                    String value2 = jsonObject1.getString("photo");
+                    byte[] bytearr = Base64.decode(value2,0);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytearr, 0, bytearr.length);
+                    Item it = new Item(value1, bitmap);
+                    adapter.addItem(it);
+                }
+                adapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -231,8 +257,9 @@ public class PageTwo extends Fragment {
 
                     con.connect();//연결 수행
 
-                    // 이미지타입
-                    JSONObject temp = convertImage();
+                    // 이미지 여기로 넘기면 됨.
+                    Bitmap image = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.image1);
+                    JSONObject temp = ImageToJson(image);
 
                     OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
                     wr.write(temp.toString());
@@ -336,17 +363,20 @@ public class PageTwo extends Fragment {
         }
 
     }
-    public JSONObject convertImage(){
-        Drawable temp = getResources().getDrawable(R.drawable.image1);
-        Bitmap bitmap = ((BitmapDrawable)temp).getBitmap();
+
+    // bitmap 이미지를 json으로 변환해준다~
+    public JSONObject ImageToJson(Bitmap image){
+//        Drawable temp = getResources().getDrawable(R.drawable.image1);
+//        Bitmap bitmap = ((BitmapDrawable)temp).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bitmapdata = stream.toByteArray();
         String str = Base64.encodeToString(bitmapdata,0);
 
+        // 넣을 객체 설정!!!!!@!@!
         JSONObject sObj = new JSONObject();
         try {
-            sObj.put("name","test");
+            sObj.put("name","jeong");
             sObj.put("photo",str);
         } catch (JSONException e) {
             e.printStackTrace();

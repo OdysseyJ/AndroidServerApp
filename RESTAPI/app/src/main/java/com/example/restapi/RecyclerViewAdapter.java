@@ -1,6 +1,7 @@
 package com.example.restapi;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +14,7 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<Item> mData = null ;
-    int[] images = {
-            R.drawable.image1,
-    R.drawable.image2,
-    R.drawable.image3,
-    R.drawable.image4,
-    R.drawable.image5,
-    R.drawable.image6,
-    R.drawable.image7,
-    R.drawable.image8,
-    R.drawable.image9,
-    R.drawable.image10
-    };
+    private ArrayList<Item> mData = new ArrayList<Item>() ;
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -41,6 +30,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // 생성자에서 데이터 리스트 객체를 전달받음.
     RecyclerViewAdapter(ArrayList<Item> list) {
         mData = list ;
+    }
+
+    RecyclerViewAdapter() {
     }
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
@@ -60,8 +52,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
         Item text = mData.get(position) ;
         holder.textView1.setText(text.getName()) ;
-        int image = images[position];
-        holder.image.setImageResource(image);
+        Bitmap image = mData.get(position).getImage();
+        holder.image.setImageBitmap(image);
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.
