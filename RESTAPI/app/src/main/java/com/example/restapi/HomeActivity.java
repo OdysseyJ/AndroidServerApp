@@ -1,5 +1,6 @@
 package com.example.restapi;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,11 +18,17 @@ public class HomeActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     BottomNavigationView navigation;
+    String loginuser_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Intent intent = getIntent();
+        loginuser_id = intent.getStringExtra("user_id");
+
+        System.out.println("userIdthrown@@@@@@@@@@@@@2"+loginuser_id);
         mTextMessage = findViewById(R.id.message);
 
         navigation = findViewById(R.id.nav_view);
@@ -92,4 +99,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    // 뒤로가기 버튼 막기.
+    @Override public void onBackPressed() {
+    }
 }
