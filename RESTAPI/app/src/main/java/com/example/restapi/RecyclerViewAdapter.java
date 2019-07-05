@@ -14,7 +14,9 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private ArrayList<Item> mData = new ArrayList<Item>() ;
+    private ArrayList<Item> mData = new ArrayList<>() ;
+
+    private ImageView imageview;
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class ViewHolder extends RecyclerView.ViewHolder {
