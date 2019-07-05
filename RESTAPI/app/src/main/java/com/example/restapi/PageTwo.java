@@ -80,7 +80,7 @@ public class PageTwo extends Fragment {
                 switch (v.getId()){
                     case R.id.addbutton:
                         Intent intent = new Intent(getActivity(),CustomDialog.class);
-                        startActivity(intent);
+                        startActivityForResult(intent, 1111);
                         break;
                 }
             }
@@ -90,6 +90,26 @@ public class PageTwo extends Fragment {
 
         return fragment_two;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+
+            case 1111:
+                if (resultCode == Activity.RESULT_OK) {
+                    String name = data.getStringExtra("name");
+                    String temp = data.getStringExtra("photo");
+                    byte[] decodedByteArray = Base64.decode(temp, Base64.NO_WRAP);
+                    Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+                    Item item = new Item(name, decodedBitmap);
+                    items.add(item);
+                    adapter.addItem(item);
+                    adapter.notifyDataSetChanged();
+                }
+                break;
+        }
+    }
+
     //new JSONTask().execute("http://143.248.36.59:8080/api/gallery/all");로 쓴다.
     public class JSONGetTask extends AsyncTask<String, String, String> {
 
@@ -216,6 +236,7 @@ public class PageTwo extends Fragment {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytearr, 0, bytearr.length);
                     Item it = new Item(value1, bitmap);
                     adapter.addItem(it);
+                    items.add(it);
                 }
                 adapter.notifyDataSetChanged();
             } catch (JSONException e) {

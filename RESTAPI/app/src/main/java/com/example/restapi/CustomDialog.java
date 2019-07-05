@@ -38,6 +38,7 @@ public class CustomDialog extends Activity implements View.OnClickListener {
     // 사진 가져오기
     private static final int REQUEST_TAKE_ALBUM = 3333;
     Uri photoURI;
+    Bitmap tempbitmap;
 
     private Button completeButton;
     private Button exitButton;
@@ -89,8 +90,14 @@ public class CustomDialog extends Activity implements View.OnClickListener {
                         Toast.makeText(this, "제목을 입력하세요.", Toast.LENGTH_SHORT).show();
                     }
                     else {
+                        // 서버에 api콜 보냄.
                         new JSONPostTask().execute("http://143.248.36.59:8080/api/gallery/add");
+                        Intent intent = new Intent();
+                        intent.putExtra("name", text);
                         Toast.makeText(this, "이미지가 서버에 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                        String temp = getBase64String(tempbitmap);
+                        intent.putExtra("photo", temp);
+                        setResult(RESULT_OK, intent);
                         this.finish();
                     }
                 }
@@ -111,12 +118,22 @@ public class CustomDialog extends Activity implements View.OnClickListener {
         switch (requestCode) {
 
             case REQUEST_TAKE_ALBUM:
+                imageSet = 0;
                 if (resultCode == Activity.RESULT_OK) {
                     if(data.getData() != null){
                         try {
                             photoURI = data.getData();
-                            image.setImageURI(photoURI);
-                            imageSet = 1;
+                            try {
+                                tempbitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), photoURI);
+                                image.setImageURI(photoURI);
+                                imageSet = 1;
+                            } catch (FileNotFoundException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
                         }catch (Exception e){
                             Log.e("TAKE_ALBUM_SINGLE ERROR", e.toString());
                         }
@@ -166,19 +183,8 @@ public class CustomDialog extends Activity implements View.OnClickListener {
 
                     con.connect();//연결 수행
 
-                    // 이미지 여기로 넘기면 됨.
-                    Bitmap bitmap = null;
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), photoURI);
-                    } catch (FileNotFoundException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                    JSONObject temp = ImageToJson(bitmap);
+                    // 서버 전송을 위해.
+                    JSONObject temp = ImageToJson(tempbitmap);
 
                     OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
                     wr.write(temp.toString());
@@ -198,27 +204,6 @@ public class CustomDialog extends Activity implements View.OnClickListener {
                     } else {
                         System.out.println(con.getResponseMessage());
                     }
-
-                    // 요청 파라미터 출력
-                    // - 파라미터는 쿼리 문자열의 형식으로 지정 (ex) 이름=값&이름=값 형식&...
-                    // - 파라미터의 값으로 한국어 등을 송신하는 경우는 URL 인코딩을 해야 함.
-//                    try (OutputStream out = conn.getOutputStream()) {
-//                        out.write("id=javaking".getBytes());
-//                        out.write("&".getBytes());
-//                        out.write(("name=" + URLEncoder.encode("자바킹","UTF-8")).getBytes());
-//                    }
-//[출처] [Java] HttpURLConnection 클래스 - URL 요청후 응답받기 ( GET방식, POST방식 )|작성자 자바킹
-
-                    // 응답 내용(BODY)구하기기
-//                    ty (InputStream in = con.getInputStream();
-//                         ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-//                        byte[] buf = new byte[1024 * 8];
-//                        int length = 0;
-//                        while ((length = in.read(buf)) != -1) {
-//                            out.write(buf, 0, length);
-//                        }
-//                        System.out.println(new String(out.toByteArray(), "UTF-8"));
-//                    }
 
                     return "";
                     //아래는 예외처리 부분이다.
@@ -277,8 +262,6 @@ public class CustomDialog extends Activity implements View.OnClickListener {
 
             super.onPostExecute(result);
 
-//            tvData.setText(result);
-
         }
 
     }
@@ -304,4 +287,16 @@ public class CustomDialog extends Activity implements View.OnClickListener {
 
         return sObj;
     }
+
+    public String getBase64String(Bitmap bitmap)
+    {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+
+        return Base64.encodeToString(imageBytes, Base64.NO_WRAP);
+    }
+
 }
