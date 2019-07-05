@@ -1,0 +1,7 @@
+api/contact/add ////// 바디에 담을 정보 {name:"",number:""}
+api/contact/remove/지우고싶은contacttitle
+api/contact/all
+
+api/gallery/add //////////// 바디{name:"",photo:""}
+api/gallery/remove/지우고싶은사진title
+api/gallery/all
