@@ -3,6 +3,7 @@ package com.example.restapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -32,34 +34,36 @@ import java.net.URL;
 
 public class ImageClickDialog extends Activity implements View.OnClickListener {
 
-    // 사진 가져오기
-    private static final int REQUEST_TAKE_ALBUM = 3333;
-    Uri photoURI;
-    Bitmap tempbitmap;
-
-    private Button completeButton;
+    private Button deleteButton;
     private Button exitButton;
-    private EditText editName;
     private ImageView image;
-    private Button galleryButton;
-    private int imageSet = 0;
+
+    private String name;
+    private Bitmap photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.custom_dialog);
+        setContentView(R.layout.imageclick_dialog);
 
         //init
-        completeButton = (Button)findViewById(R.id.complete);
+        deleteButton = (Button)findViewById(R.id.delete);
         exitButton = (Button)findViewById(R.id.exit);
-        editName = (EditText)findViewById(R.id.editName);
         image = (ImageView)findViewById(R.id.imageView);
-        galleryButton = (Button)findViewById(R.id.addPhoto);
 
-        completeButton.setOnClickListener(this);
+        Intent intent = getIntent();
+        name = intent.getStringExtra("name");
+        byte[] arr = getIntent().getByteArrayExtra("photo");
+        photo = BitmapFactory.decodeByteArray(arr, 0, arr.length);
+        image.setImageBitmap(photo);
+
+        System.out.println("############################333@@@@@@@@@@@@@@@@@");
+        System.out.println("name:" + name);
+        System.out.println("photo:" + photo);
+
+        deleteButton.setOnClickListener(this);
         exitButton.setOnClickListener(this);
-        galleryButton.setOnClickListener(this);
     }
 
     @Override
@@ -80,33 +84,18 @@ public class ImageClickDialog extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch(view.getId()){
-            case R.id.complete:
-                if (imageSet == 1){
-                    String text = editName.getText().toString();
-                    if (text.equals("")){
-                        Toast.makeText(this, "제목을 입력하세요.", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        // 서버에 api콜 보냄.
-                        new JSONPostTask().execute("http://143.248.36.59:8080/api/gallery/add");
-                        Intent intent = new Intent();
-                        intent.putExtra("name", text);
-                        Toast.makeText(this, "이미지가 서버에 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                        String temp = getBase64String(tempbitmap);
-                        intent.putExtra("photo", temp);
-                        setResult(RESULT_OK, intent);
-                        this.finish();
-                    }
-                }
-                else {
-                    Toast.makeText(this, "이미지를 선택하세요.", Toast.LENGTH_SHORT).show();
-                }
+            case R.id.delete:
+                String http = "http://143.248.36.59:8080/api/gallery/"+name;
+                new JSONTaskDeleteObj().execute(http);
+                Intent intent = new Intent();
+                intent.putExtra("name", name);
+                setResult(RESULT_OK, intent);
+                Toast.makeText(this, "이미지가 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
+                this.finish();
                 break;
             case R.id.exit:
                 this.finish();
                 break;
-            case R.id.addPhoto:
-                getAlbum();
         }
     }
 
@@ -114,42 +103,11 @@ public class ImageClickDialog extends Activity implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
 
-            case REQUEST_TAKE_ALBUM:
-                imageSet = 0;
-                if (resultCode == Activity.RESULT_OK) {
-                    if(data.getData() != null){
-                        try {
-                            photoURI = data.getData();
-                            try {
-                                tempbitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), photoURI);
-                                image.setImageURI(photoURI);
-                                imageSet = 1;
-                            } catch (FileNotFoundException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                        }catch (Exception e){
-                            Log.e("TAKE_ALBUM_SINGLE ERROR", e.toString());
-                        }
-                    }
-                }
-                break;
         }
     }
 
-    private void getAlbum(){
-        Log.i("getAlbum", "Call");
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent, REQUEST_TAKE_ALBUM);
-    }
-
     //new JSONTask().execute("http://143.248.36.59:8080/api/gallery/add");로 쓴다. (바디필요)
-    public class JSONPostTask extends AsyncTask<String, String, String> {
+    public class JSONDeleteTask extends AsyncTask<String, String, String> {
 
         @Override
 
@@ -166,41 +124,17 @@ public class ImageClickDialog extends Activity implements View.OnClickListener {
 
                     URL url = new URL(urls[0]);//url을 가져온다.
 
-                    con = (HttpURLConnection) url.openConnection();
+                    Log.v("태그", url.toString());
 
-                    con.setRequestMethod("POST");
-
-                    con.setDoOutput(true);
-
-                    con.setDoInput(true);
-
-                    con.setDefaultUseCaches(false);
-
-                    con.setRequestProperty("Content-Type","application/json");
+                    HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+//set request method
+                    connection.setRequestMethod("DELETE");
+                    connection.setRequestProperty("Content-Type", "application/xml");
+                    connection.setDoOutput(true);
+                    con.setUseCaches (false);
 
                     con.connect();//연결 수행
 
-                    // 서버 전송을 위해.
-                    JSONObject temp = ImageToJson(tempbitmap);
-
-                    OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
-                    wr.write(temp.toString());
-                    wr.flush();
-
-                    StringBuilder sb = new StringBuilder();
-                    if (con.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                        //Stream을 처리해줘야 하는 귀찮음이 있음.
-                        BufferedReader br = new BufferedReader(
-                                new InputStreamReader(con.getInputStream(), "utf-8"));
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            sb.append(line).append("\n");
-                        }
-                        br.close();
-                        System.out.println("" + sb.toString());
-                    } else {
-                        System.out.println(con.getResponseMessage());
-                    }
 
                     return "";
                     //아래는 예외처리 부분이다.
@@ -263,37 +197,65 @@ public class ImageClickDialog extends Activity implements View.OnClickListener {
 
     }
 
-    public JSONObject ImageToJson(Bitmap image){
-//        Drawable temp = getResources().getDrawable(R.drawable.image1);
-//        Bitmap bitmap = ((BitmapDrawable)temp).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] bitmapdata = stream.toByteArray();
-        String str = Base64.encodeToString(bitmapdata,0);
 
-        // 넣을 객체 설정!!!!!@!@!
-        String name = editName.getText().toString();
+    //하나의 contact 삭제
+    public class JSONTaskDeleteObj extends AsyncTask<String, String, String> {
+        @Override
+        protected String doInBackground(String urls[]) {
+            try {
+                HttpURLConnection con = null;
+                BufferedReader reader = null;
 
-        JSONObject sObj = new JSONObject();
-        try {
-            sObj.put("name",name);
-            sObj.put("photo",str);
-        } catch (JSONException e) {
-            e.printStackTrace();
+                try {
+                    URL url = new URL(urls[0]);
+                    //연결을 함
+                    con = (HttpURLConnection) url.openConnection();
+                    con.setRequestMethod("DELETE");//POST방식으로 보냄
+                    con.setRequestProperty("Cache-Control", "no-cache");//캐시 설정
+                    con.setRequestProperty("Content-Type", "application/json");//application JSON 형식으로 전송
+                    con.setRequestProperty("Accept", "text/html");//서버에 response 데이터를 html로 받음
+                    con.setDoOutput(true);//Outstream으로 post 데이터를 넘겨주겠다는 의미
+                    con.setDoInput(true);//Inputstream으로 서버로부터 응답을 받겠다는 의미
+                    con.connect();
+
+                    //서버로 부터 데이터를 받음
+                    InputStream stream = con.getInputStream();
+
+                    reader = new BufferedReader(new InputStreamReader(stream));
+
+                    StringBuffer buffer = new StringBuffer();
+
+                    String line = "";
+                    while ((line = reader.readLine()) != null) {
+                        buffer.append(line);
+                    }
+
+                    return buffer.toString();//서버로 부터 받은 값을 리턴해줌 아마 OK!!가 들어올것임
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (con != null) {
+                        con.disconnect();
+                    }
+                    try {
+                        if (reader != null) {
+                            reader.close();//버퍼를 닫아줌
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
         }
-
-        return sObj;
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+        }
     }
-
-    public String getBase64String(Bitmap bitmap)
-    {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-
-        byte[] imageBytes = byteArrayOutputStream.toByteArray();
-
-        return Base64.encodeToString(imageBytes, Base64.NO_WRAP);
-    }
-
 }

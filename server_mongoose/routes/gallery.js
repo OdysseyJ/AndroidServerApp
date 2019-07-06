@@ -27,15 +27,15 @@ module.exports = function(app, Photo)
     });
 
     // DELETE photo
-    app.delete('/api/gallery/remove', function(req, res){
-      Photo.remove({ _id: req.params.photo_id }, function(err, output){
+    app.delete('/api/gallery/:name', function(req, res){
+      Photo.deleteOne({ name: req.params.name }, function(err, output){
       if(err) return res.status(500).json({ error: "database failure" });
-
+      console.log("on");
       /* ( SINCE DELETE OPERATION IS IDEMPOTENT, NO NEED TO SPECIFY )
       if(!output.result.n) return res.status(404).json({ error: "photo not found" });
       res.json({ message: "photo deleted" });
       */
-
+      res.json({result: 1});
       res.status(204).end();
       })
     });

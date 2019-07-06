@@ -73,7 +73,16 @@ public class PageTwo extends Fragment {
         adapter = new RecyclerViewAdapter(new RecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                System.out.println("Selected");
+                Intent intent = new Intent(getActivity(),ImageClickDialog.class);
+                intent.putExtra("name",items.get(position).getName());
+                Bitmap tempbit = (Bitmap) items.get(position).getImage();
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                tempbit.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+
+                intent.putExtra("photo", byteArray);
+                startActivityForResult(intent, 2222);
             }
         });
         recyclerView.setAdapter(adapter) ;
@@ -112,6 +121,21 @@ public class PageTwo extends Fragment {
                     adapter.notifyDataSetChanged();
                 }
                 break;
+            case 2222:
+                if (resultCode == Activity.RESULT_OK){
+                    String name = data.getStringExtra("name");
+                    adapter.resetItem();
+                    for(int i = 0; i < items.size(); i++){
+                        if (items.get(i).getName().equals(name)){
+                            items.remove(i);
+                        }
+                    }
+                    for(int i = 0; i < items.size(); i++){{
+                        adapter.addItem(items.get(i));
+                    }
+                    adapter.notifyDataSetChanged();
+                    }
+                }
         }
     }
 
@@ -409,5 +433,16 @@ public class PageTwo extends Fragment {
         }
 
         return sObj;
+    }
+
+    public String getBase64String(Bitmap bitmap)
+    {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
+
+        return Base64.encodeToString(imageBytes, Base64.NO_WRAP);
     }
 }
