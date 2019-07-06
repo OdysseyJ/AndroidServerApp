@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <meta-data
+        android:name="com.google.firebase.ml.version.DEPENDENCIES"
+        android:value="face"/>
+
+        <meta-data
+            android:name="com.google.firebase.ml.version.DEPENDENCIES2"
+            android:value="ocr"/>
+
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"></activity>
@@ -28,6 +37,12 @@
             android:name=".ImageClickDialog"
             android:theme="@android:style/Theme.Dialog">
         </activity>
+
+        <activity
+            android:name=".FaceRecognition"></activity>
+
+        <activity
+            android:name=".LandmarkRecognition"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

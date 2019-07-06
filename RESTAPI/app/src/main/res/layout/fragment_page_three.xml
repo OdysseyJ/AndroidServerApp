@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PageThree">
+<!-- TODO: Update blank fragment layout -->
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    android:orientation="vertical"
+        tools:context="com.example.restapi.PageThree">
 
-</FrameLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+    <Button
+        android:id="@+id/textrecognition"
+        android:layout_width="237dp"
+        android:layout_height="169dp"
+        android:layout_marginBottom="67dp"
+        android:text="텍스트인식" />
+
+    <Button
+        android:id="@+id/facerecognition"
+        android:layout_width="255dp"
+        android:layout_height="91dp"
+        android:text="얼굴인식" />
+
+    <Button
+        android:id="@+id/landmarkrecognition"
+        android:layout_width="225dp"
+        android:layout_height="182dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginBottom="283dp"
+        android:text="랜드마크" />
+
+</LinearLayout>
