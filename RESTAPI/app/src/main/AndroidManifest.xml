@@ -16,6 +16,9 @@
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"></activity>
 
+        <activity android:name=".ContactDialog"
+            android:theme="@android:style/Theme.Dialog"></activity>
+
         <activity
             android:name=".CustomDialog"
             android:theme="@android:style/Theme.Dialog">

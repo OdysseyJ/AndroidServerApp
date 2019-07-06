@@ -11,5 +11,13 @@
         android:layout_height="wrap_content" />
 
 
+    <Button
+        android:id="@+id/addbutton1"
+        android:layout_width="99dp"
+        android:layout_height="96dp"
+        android:layout_gravity="bottom|right|center_vertical"
+        android:text="Button" />
+
+
 
 </FrameLayout>
