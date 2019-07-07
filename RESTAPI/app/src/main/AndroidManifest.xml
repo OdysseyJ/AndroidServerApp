@@ -33,6 +33,9 @@
             android:theme="@android:style/Theme.Dialog">
         </activity>
 
+        <activity android:name=".ContactClickDialog"
+            android:theme="@android:style/Theme.Dialog"></activity>
+
         <activity
             android:name=".ImageClickDialog"
             android:theme="@android:style/Theme.Dialog">
