@@ -20,23 +20,43 @@
     <Button
         android:id="@+id/textrecognition"
         android:layout_width="237dp"
-        android:layout_height="169dp"
-        android:layout_marginBottom="67dp"
+        android:layout_height="62dp"
         android:text="텍스트인식" />
-
-    <Button
-        android:id="@+id/facerecognition"
-        android:layout_width="255dp"
-        android:layout_height="91dp"
-        android:text="얼굴인식" />
 
     <Button
         android:id="@+id/landmarkrecognition"
         android:layout_width="225dp"
-        android:layout_height="182dp"
-        android:layout_marginStart="74dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginBottom="283dp"
+        android:layout_height="wrap_content"
         android:text="랜드마크" />
+
+    <Button
+        android:id="@+id/facerecognition"
+        android:layout_width="255dp"
+        android:layout_height="wrap_content"
+        android:text="얼굴인식" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/molehole"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="두더지잡기" />
+
+        <Button
+            android:id="@+id/onetofifty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1to50" />
+
+        <Button
+            android:id="@+id/mine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="지뢰찾기" />
+    </LinearLayout>
 
 </LinearLayout>
