@@ -28,10 +28,10 @@ module.exports = function(app, Contact)
     });
 
     // DELETE contact
-    app.delete('/api/contact/:contact_id', function(req, res){
-      Contact.remove({ _id: req.params.contact_id }, function(err, output){
+    app.delete('/api/contact/:name', function(req, res){
+      Contact.deleteOne({ name: req.params.name }, function(err, output){
       if(err) return res.status(500).json({ error: "database failure" });
-
+      console.log("on");
       /* ( SINCE DELETE OPERATION IS IDEMPOTENT, NO NEED TO SPECIFY )
       if(!output.result.n) return res.status(404).json({ error: "contact not found" });
       res.json({ message: "contact deleted" });

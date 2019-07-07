@@ -59,7 +59,7 @@ public class PageThree extends Fragment {
         textrecognition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), LandmarkRecognition.class);
+                Intent intent = new Intent(getActivity(), TextRecognition.class);
                 startActivityForResult(intent, 3333);
             }
         });

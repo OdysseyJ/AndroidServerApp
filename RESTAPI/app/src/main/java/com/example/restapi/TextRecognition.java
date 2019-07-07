@@ -53,7 +53,7 @@ public class TextRecognition extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_face_recognition);
+        setContentView(R.layout.tex_recognition);
 
         waitingDialog = new SpotsDialog.Builder()
                 .setCancelable(false)
