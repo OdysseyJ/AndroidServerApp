@@ -1,13 +1,11 @@
-package com.example.restapi.Helper;
+package com.example.restapi;
 
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.util.AttributeSet;
 
 public class RectOverlay extends GraphicOverlay.Graphic {
 

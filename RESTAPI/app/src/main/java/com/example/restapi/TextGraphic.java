@@ -1,11 +1,10 @@
-package com.example.restapi.Helper;
+package com.example.restapi;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
-import com.example.restapi.Helper.GraphicOverlay;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 
 public class TextGraphic extends GraphicOverlay.Graphic {

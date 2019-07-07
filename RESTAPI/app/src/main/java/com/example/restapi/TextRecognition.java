@@ -11,8 +11,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.restapi.Helper.GraphicOverlay;
-import com.example.restapi.Helper.TextGraphic;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -53,7 +51,7 @@ public class TextRecognition extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tex_recognition);
+        setContentView(R.layout.fragment_face_recognition);
 
         waitingDialog = new SpotsDialog.Builder()
                 .setCancelable(false)
