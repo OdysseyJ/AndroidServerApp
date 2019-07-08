@@ -24,23 +24,29 @@
 
     <!-- Notice -->
     <LinearLayout
-        android:padding="24dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="327dp"
+        android:orientation="vertical"
+        android:padding="24dp">
+
         <ImageView
             android:id="@+id/profile_photo_delete"
             android:layout_width="match_parent"
             android:layout_height="200dp" />
+
         <TextView
             android:id="@+id/name_delete"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="50dp"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/phonenum_delete"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="50dp"
+            android:textColor="#9500FF"
+            android:textSize="20sp" />
 
 
     </LinearLayout>
@@ -57,26 +63,26 @@
         <Button
             android:id="@+id/cancel_contact_delete"
             android:layout_width="wrap_content"
-            android:layout_height="53dp"
+            android:layout_height="wrap_content"
             android:background="#00000000"
             android:gravity="center"
             android:onClick="mOnClose"
             android:padding="16dp"
             android:text="취소"
             android:textColor="#ff7a00"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/confirm_contact_delete"
             android:layout_width="wrap_content"
-            android:layout_height="53dp"
+            android:layout_height="wrap_content"
             android:background="#00000000"
             android:gravity="center"
             android:onClick="mOnClose"
             android:padding="16dp"
             android:text="확인"
             android:textColor="#ff7a00"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
     </LinearLayout>
     <!--// 닫기 버튼 -->
 </LinearLayout>

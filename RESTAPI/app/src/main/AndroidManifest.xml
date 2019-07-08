@@ -28,6 +28,8 @@
         <activity android:name=".ContactDialog"
             android:theme="@android:style/Theme.Dialog"></activity>
 
+        <activity android:name=".MoleHolePopupActivity"></activity>
+
         <activity
             android:name=".CustomDialog"
             android:theme="@android:style/Theme.Dialog">
@@ -46,6 +48,18 @@
 
         <activity
             android:name=".LandmarkRecognition"></activity>
+
+        <activity
+            android:name=".MoleHoleActivity"></activity>
+
+        <activity
+            android:name=".OneToFiftyActivity"></activity>
+
+        <activity
+            android:name=".PopupActivity"></activity>
+
+        <activity
+            android:name=".NamePopupActivity"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

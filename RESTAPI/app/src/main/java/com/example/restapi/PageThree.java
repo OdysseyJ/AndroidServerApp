@@ -21,6 +21,9 @@ public class PageThree extends Fragment {
     Button facerecognition;
     Button landmarkrecognition;
     Button textrecognition;
+    Button onetofiftybutton;
+    Button moleholebutton;
+    Button minebutton;
 
     public PageThree() {
         // Required empty public constructor
@@ -35,6 +38,10 @@ public class PageThree extends Fragment {
         facerecognition = (Button) fragment_three.findViewById(R.id.facerecognition);
         landmarkrecognition = (Button) fragment_three.findViewById(R.id.landmarkrecognition);
         textrecognition = (Button) fragment_three.findViewById(R.id.textrecognition);
+        onetofiftybutton = (Button) fragment_three.findViewById(R.id.onetofifty);
+        moleholebutton = (Button) fragment_three.findViewById(R.id.molehole);
+        minebutton = (Button) fragment_three.findViewById(R.id.mine);
+
         facerecognition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,10 +59,32 @@ public class PageThree extends Fragment {
         textrecognition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), LandmarkRecognition.class);
-                startActivityForResult(intent, 2222);
+                Intent intent = new Intent(getActivity(), TextRecognition.class);
+                startActivityForResult(intent, 3333);
             }
         });
+        onetofiftybutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), OneToFiftyActivity.class);
+                startActivityForResult(intent, 4444);
+            }
+        });
+        moleholebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MoleHoleActivity.class);
+                startActivityForResult(intent, 5555);
+            }
+        });
+        minebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), LandmarkRecognition.class);
+//                startActivityForResult(intent, 2222);
+            }
+        });
+
         return fragment_three;
     }
 
