@@ -24,6 +24,7 @@ public class PageThree extends Fragment {
     Button onetofiftybutton;
     Button moleholebutton;
     Button minebutton;
+    Button touchbutton;
 
     public PageThree() {
         // Required empty public constructor
@@ -41,6 +42,7 @@ public class PageThree extends Fragment {
         onetofiftybutton = (Button) fragment_three.findViewById(R.id.onetofifty);
         moleholebutton = (Button) fragment_three.findViewById(R.id.molehole);
         minebutton = (Button) fragment_three.findViewById(R.id.mine);
+        touchbutton = (Button) fragment_three.findViewById(R.id.touch);
 
         facerecognition.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +84,13 @@ public class PageThree extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), MineActivity.class);
                 startActivityForResult(intent, 6666);
+            }
+        });
+        touchbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), TouchGameActivity.class);
+                startActivityForResult(intent, 7777);
             }
         });
 

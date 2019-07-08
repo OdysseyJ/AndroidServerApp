@@ -57,6 +57,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="지뢰찾기" />
+
+        <Button
+            android:id="@+id/touch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="터치게임" />
     </LinearLayout>
 
 </LinearLayout>

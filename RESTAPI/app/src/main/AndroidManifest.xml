@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LandmarkRecognitionShow"></activity>
+        <activity android:name=".TouchGameActivity"></activity>
+        <activity android:name=".LandmarkRecognitionShow" />
 
         <meta-data
             android:name="com.google.firebase.ml.version.DEPENDENCIES"
@@ -27,18 +28,20 @@
         <activity
             android:name=".ContactDialog"
             android:theme="@android:style/Theme.Dialog" />
+
         <activity android:name=".MoleHolePopupActivity" />
+
         <activity
             android:name=".CustomDialog"
-            android:theme="@android:style/Theme.Dialog">
-        </activity>
-
-        <activity android:name=".ContactClickDialog"
             android:theme="@android:style/Theme.Dialog"></activity>
+
+        <activity
+            android:name=".ContactClickDialog"
+            android:theme="@android:style/Theme.Dialog" ></activity>
 
         <activity
             android:name=".ImageClickDialog"
-            android:theme="@android:style/Theme.Dialog"></activity>
+            android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".FaceRecognition" />
         <activity android:name=".LandmarkRecognition" />
         <activity android:name=".TextRecognition" />
