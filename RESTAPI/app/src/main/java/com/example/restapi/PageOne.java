@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +45,8 @@ public class PageOne extends Fragment {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<PhoneBookInfo> phoneBook_array = new ArrayList<PhoneBookInfo>();
-    private Button addButton1;
+    private ImageButton addButton1;
+    private int debug = 0;
 
 
     RecyclerAdapter_PhoneBook adapter;
@@ -60,6 +62,7 @@ public class PageOne extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity()); // this??
         mRecyclerView.setLayoutManager(mLayoutManager);
         Log.v("삭제", "ㅇㅇㅇㅇ");
+        Log.v("삭제", String.valueOf(phoneBook_array.size()));
         adapter = new RecyclerAdapter_PhoneBook(new RecyclerAdapter_PhoneBook.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -80,8 +83,7 @@ public class PageOne extends Fragment {
             }
         });
         mRecyclerView.setAdapter(adapter);
-
-        addButton1 = (Button) fragment_one.findViewById(R.id.addbutton1);
+        addButton1 = (ImageButton) fragment_one.findViewById(R.id.addbutton1);
         addButton1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -99,6 +101,7 @@ public class PageOne extends Fragment {
         new JSONGetTask().execute("http://143.248.36.59:8080/api/contact/all");
         Log.v("태그", "new JSONGetTask 끝");
         // Inflate the layout for this fragment
+
         return fragment_one;
     }
 
@@ -180,6 +183,7 @@ public class PageOne extends Fragment {
             try {
                 JSONTokener root = new JSONTokener(result);
                 JSONArray temp = (JSONArray) root.nextValue();
+                phoneBook_array.clear();
                 for (int i = 0; i < temp.length(); i++) {
                     System.out.println(temp.getJSONObject(i));
                     JSONObject jsonObject1 = temp.getJSONObject(i);
@@ -189,11 +193,13 @@ public class PageOne extends Fragment {
                     byte[] bytearr = Base64.decode(value3,0);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytearr, 0, bytearr.length);
                     PhoneBookInfo custom = new PhoneBookInfo(value1, value2, bitmap);
+
                     phoneBook_array.add(custom);
                     adapter.addItem(custom);
                     Log.v("태그", "초기 연락처 불러오기");
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

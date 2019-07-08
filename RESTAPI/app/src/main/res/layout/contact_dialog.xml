@@ -44,10 +44,15 @@
             android:id="@+id/contact_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
             android:hint="이름을 입력하세요" />
         <EditText
             android:id="@+id/contact_phonenumber"
             android:layout_width="match_parent"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
+            android:inputType="phone"
             android:layout_height="wrap_content"
             android:hint="전화번호를 입력하세요" />
 

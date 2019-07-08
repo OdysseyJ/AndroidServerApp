@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +57,7 @@ public class PageTwo extends Fragment {
     RecyclerViewAdapter adapter;
 
     // Buttons
-    private Button addButton;
+    private ImageButton addButton;
 
     ArrayList<Item> items = new ArrayList<Item>();
 
@@ -87,7 +88,7 @@ public class PageTwo extends Fragment {
         });
         recyclerView.setAdapter(adapter) ;
 
-        addButton = (Button) fragment_two.findViewById(R.id.addbutton);
+        addButton = (ImageButton) fragment_two.findViewById(R.id.addbutton);
         addButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

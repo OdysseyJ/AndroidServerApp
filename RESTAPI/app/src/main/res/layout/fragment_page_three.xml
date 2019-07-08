@@ -7,62 +7,135 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-    android:orientation="vertical"
+        android:orientation="vertical"
         tools:context="com.example.restapi.PageThree">
 
+        <View
+        android:layout_width="wrap_content"
+        android:layout_height="14dp"
+        android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
-
-    <Button
-        android:id="@+id/textrecognition"
-        android:layout_width="237dp"
-        android:layout_height="62dp"
-        android:text="텍스트인식" />
-
-    <Button
-        android:id="@+id/landmarkrecognition"
-        android:layout_width="225dp"
-        android:layout_height="wrap_content"
-        android:text="랜드마크" />
-
-    <Button
-        android:id="@+id/facerecognition"
-        android:layout_width="255dp"
-        android:layout_height="wrap_content"
-        android:text="얼굴인식" />
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:text="  Recognition"
+        android:textColor="#000"
+        android:textSize="40sp" />
 
-        <Button
-            android:id="@+id/molehole"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="두더지잡기" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_weight="1" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/onetofifty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1to50" />
+        <ImageButton
+            android:id="@+id/textrecognition"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/text_recog"
+            android:text="텍스트 인식" />
+        <View
+            android:layout_weight="1"
+            android:layout_width="17dp"
+            android:layout_height="0dp"/>
+        <ImageButton
+            android:id="@+id/landmarkrecognition"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/landmark"
+            android:text="랜드마크 인식" />
+        <View
+            android:layout_weight="1"
+            android:layout_width="1dp"
+            android:layout_height="0dp"/>
 
-        <Button
-            android:id="@+id/mine"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="지뢰찾기" />
-
-        <Button
-            android:id="@+id/touch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="터치게임" />
+        <ImageButton
+            android:id="@+id/facerecognition"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/face_recog"
+            android:text="얼굴 인식" />
     </LinearLayout>
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp" android:text="  Mini Game" android:textColor="#000"/>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_weight="1" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/molehole"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/moleup" />
+
+            <ImageButton
+                android:id="@+id/onetofifty"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/onetofifty" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/mine"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/mine" />
+
+            <ImageButton
+                android:id="@+id/touch"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/touch"
+                android:text="터치게임" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="11dp"
+        android:layout_weight="1" />
 
 </LinearLayout>

@@ -61,27 +61,19 @@
                     android:textSize="13sp" />
 
             </LinearLayout>
-
+            <View
+                android:layout_weight="1"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"/>
             <ImageButton
                 android:id="@+id/remove_button"
-                android:layout_width="30dp"
+                android:layout_width="86dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
                 android:scaleType="fitCenter"
                 android:src="@drawable/trashicon_red" />
-
-            <ImageButton
-                android:id="@+id/call_button"
-                android:layout_width="30dp"
-                android:layout_height="60dp"
-                android:layout_marginRight="1dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:gravity="center_vertical"
-                android:scaleType="fitCenter"
-                android:src="@drawable/call_icon2" />
 
         </LinearLayout>
 

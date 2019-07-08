@@ -4,6 +4,9 @@ package com.example.restapi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +36,12 @@ public class RecyclerAdapter_PhoneBook extends RecyclerView.Adapter<RecyclerAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.imageView.setImageBitmap(phoneBook_array.get(position).user_photo);
+        holder.imageView.setBackground(new ShapeDrawable(new OvalShape()));
+        if(Build.VERSION.SDK_INT >= 21) {
+            holder.imageView.setClipToOutline(true);
+        }
+
+
         holder.textView1.setText(phoneBook_array.get(position).user_name);
         holder.textView2.setText(phoneBook_array.get(position).user_phonenumber);
         holder.remove_button.setOnClickListener(new View.OnClickListener(){

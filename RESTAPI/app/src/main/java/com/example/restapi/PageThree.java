@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
 /**
@@ -18,13 +19,13 @@ import android.widget.Button;
  */
 public class PageThree extends Fragment {
 
-    Button facerecognition;
-    Button landmarkrecognition;
-    Button textrecognition;
-    Button onetofiftybutton;
-    Button moleholebutton;
-    Button minebutton;
-    Button touchbutton;
+    ImageButton facerecognition;
+    ImageButton landmarkrecognition;
+    ImageButton textrecognition;
+    ImageButton onetofiftybutton;
+    ImageButton moleholebutton;
+    ImageButton minebutton;
+    ImageButton touchbutton;
 
     public PageThree() {
         // Required empty public constructor
@@ -36,13 +37,13 @@ public class PageThree extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View fragment_three = inflater.inflate(R.layout.fragment_page_three, container, false);
-        facerecognition = (Button) fragment_three.findViewById(R.id.facerecognition);
-        landmarkrecognition = (Button) fragment_three.findViewById(R.id.landmarkrecognition);
-        textrecognition = (Button) fragment_three.findViewById(R.id.textrecognition);
-        onetofiftybutton = (Button) fragment_three.findViewById(R.id.onetofifty);
-        moleholebutton = (Button) fragment_three.findViewById(R.id.molehole);
-        minebutton = (Button) fragment_three.findViewById(R.id.mine);
-        touchbutton = (Button) fragment_three.findViewById(R.id.touch);
+        facerecognition = (ImageButton) fragment_three.findViewById(R.id.facerecognition);
+        landmarkrecognition = (ImageButton) fragment_three.findViewById(R.id.landmarkrecognition);
+        textrecognition = (ImageButton) fragment_three.findViewById(R.id.textrecognition);
+        onetofiftybutton = (ImageButton) fragment_three.findViewById(R.id.onetofifty);
+        moleholebutton = (ImageButton) fragment_three.findViewById(R.id.molehole);
+        minebutton = (ImageButton) fragment_three.findViewById(R.id.mine);
+        touchbutton = (ImageButton) fragment_three.findViewById(R.id.touch);
 
         facerecognition.setOnClickListener(new View.OnClickListener() {
             @Override
