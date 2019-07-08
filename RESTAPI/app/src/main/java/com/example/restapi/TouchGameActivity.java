@@ -144,7 +144,7 @@ public class TouchGameActivity extends AppCompatActivity {
     }
 
     public void moveRewardActivity(){
-        Intent intent = new Intent(this, MoleHolePopupActivity.class);
+        Intent intent = new Intent(this, TouchGamePopupActivity.class);
         intent.putExtra("score", countvalue);
         intent.putExtra("name", userName);
         startActivityForResult(intent,222);

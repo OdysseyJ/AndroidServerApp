@@ -50,6 +50,7 @@
         <activity android:name=".PopupActivity" />
         <activity android:name=".NamePopupActivity" />
         <activity android:name=".MineActivity" />
+        <activity android:name=".TouchGamePopupActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
