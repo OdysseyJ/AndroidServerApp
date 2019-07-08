@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,6 +46,7 @@ public class PageOne extends Fragment {
     private ArrayList<PhoneBookInfo> phoneBook_array = new ArrayList<PhoneBookInfo>();
     private Button addButton1;
 
+
     RecyclerAdapter_PhoneBook adapter;
 
     public PageOne() {
@@ -58,8 +60,26 @@ public class PageOne extends Fragment {
         mRecyclerView = fragment_one.findViewById(R.id.phoneBook_list);
         mLayoutManager = new LinearLayoutManager(getActivity()); // this??
         mRecyclerView.setLayoutManager(mLayoutManager);
+        Log.v("삭제", "ㅇㅇㅇㅇ");
+        adapter = new RecyclerAdapter_PhoneBook(new RecyclerAdapter_PhoneBook.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(getActivity(),ContactClickDialog.class);
+                PhoneBookInfo custom =  phoneBook_array.get(position);
+                intent.putExtra("name", custom.user_name);
+                intent.putExtra("phonenum", custom.user_phonenumber);
 
-        adapter = new RecyclerAdapter_PhoneBook(R.layout.recyclerview_phonebook);
+                Log.v("삭제", "CheckPoint 5");
+                Bitmap bit_img = custom.user_photo;
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bit_img.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                intent.putExtra("photo", byteArray);
+                Log.v("삭제", "CheckPoint 6");
+                startActivityForResult(intent, 2222);
+                Log.v("삭제", "CheckPoint 7");
+            }
+        });
         mRecyclerView.setAdapter(adapter);
 
         addButton1 = (Button) fragment_one.findViewById(R.id.addbutton1);
@@ -202,7 +222,21 @@ public class PageOne extends Fragment {
                 }
                 break;
 
-
+            case 2222:
+                Log.v("삭제", "case 2222");
+                if(resultCode == Activity.RESULT_OK){
+                    String name = data.getStringExtra("name");
+                    adapter.resetItem();
+                    for(int i=0; i< phoneBook_array.size(); i++){
+                        if(phoneBook_array.get(i).user_name.equals(name)){
+                            phoneBook_array.remove(i);
+                        }
+                    }
+                    for(int i = 0; i < phoneBook_array.size(); i++){
+                        adapter.addItem(phoneBook_array.get(i));
+                    }
+                    adapter.notifyDataSetChanged();
+                }
         }
     }
 }

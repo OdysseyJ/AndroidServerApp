@@ -75,7 +75,7 @@
             <ImageButton
                 android:id="@+id/call_button"
                 android:layout_width="30dp"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
