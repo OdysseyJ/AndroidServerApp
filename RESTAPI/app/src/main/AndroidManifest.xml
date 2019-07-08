@@ -12,24 +12,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".LandmarkRecognitionShow"></activity>
 
         <meta-data
-        android:name="com.google.firebase.ml.version.DEPENDENCIES"
-        android:value="face"/>
-
+            android:name="com.google.firebase.ml.version.DEPENDENCIES"
+            android:value="face" />
         <meta-data
             android:name="com.google.firebase.ml.version.DEPENDENCIES2"
-            android:value="ocr"/>
+            android:value="ocr" />
 
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home"></activity>
-
-        <activity android:name=".ContactDialog"
-            android:theme="@android:style/Theme.Dialog"></activity>
-
-        <activity android:name=".MoleHolePopupActivity"></activity>
-
+            android:label="@string/title_activity_home" />
+        <activity
+            android:name=".ContactDialog"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".MoleHolePopupActivity" />
         <activity
             android:name=".CustomDialog"
             android:theme="@android:style/Theme.Dialog">
@@ -40,26 +38,15 @@
 
         <activity
             android:name=".ImageClickDialog"
-            android:theme="@android:style/Theme.Dialog">
-        </activity>
+            android:theme="@android:style/Theme.Dialog"></activity>
+        <activity android:name=".FaceRecognition" />
+        <activity android:name=".LandmarkRecognition" />
+        <activity android:name=".TextRecognition" />
+        <activity android:name=".MoleHoleActivity" />
+        <activity android:name=".OneToFiftyActivity" />
+        <activity android:name=".PopupActivity" />
+        <activity android:name=".NamePopupActivity" />
 
-        <activity
-            android:name=".FaceRecognition"></activity>
-
-        <activity
-            android:name=".LandmarkRecognition"></activity>
-
-        <activity
-            android:name=".MoleHoleActivity"></activity>
-
-        <activity
-            android:name=".OneToFiftyActivity"></activity>
-
-        <activity
-            android:name=".PopupActivity"></activity>
-
-        <activity
-            android:name=".NamePopupActivity"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

@@ -9,27 +9,27 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.restapi.Helper.GraphicOverlay;
-import com.example.restapi.Helper.RectOverlay;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
+import com.google.firebase.ml.vision.common.FirebaseVisionPoint;
 import com.google.firebase.ml.vision.face.FirebaseVisionFace;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetector;
 import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions;
+import com.google.firebase.ml.vision.face.FirebaseVisionFaceLandmark;
 import com.wonderkiln.camerakit.CameraKitError;
 import com.wonderkiln.camerakit.CameraKitEvent;
 import com.wonderkiln.camerakit.CameraKitEventListener;
 import com.wonderkiln.camerakit.CameraKitImage;
 import com.wonderkiln.camerakit.CameraKitVideo;
 import com.wonderkiln.camerakit.CameraView;
+import com.wonderkiln.camerakit.FrameProcessingRunnable;
 
 import java.util.List;
 
@@ -132,10 +132,40 @@ public class FaceRecognition extends AppCompatActivity {
     private void processFaceResult(List<FirebaseVisionFace> firebaseVisionFaces) {
         int count = 0;
         for(FirebaseVisionFace face : firebaseVisionFaces){
-            Rect bounds = face.getBoundingBox();
-            //Draw rectangle
-            RectOverlay rect = new RectOverlay(graphicOverlay,bounds);
-            graphicOverlay.add(rect);
+//            Rect bounds = face.getBoundingBox();
+//            //Draw rectangle
+//            RectOverlay rect = new RectOverlay(graphicOverlay,bounds);
+//            graphicOverlay.add(rect);
+
+          FirebaseVisionFace temp = face;
+      FaceGraphic faceGraphic = new FaceGraphic(graphicOverlay);
+      graphicOverlay.add(faceGraphic);
+     // faceGraphic.updateFace(temp, frameMetadata.getCameraFacing());
+            faceGraphic.updateFace(temp, 50);
+
+            // If landmark detection was enabled (mouth, ears, eyes, cheeks, and
+            // nose available):
+            FirebaseVisionPoint leftEyePos = null;
+            FirebaseVisionFaceLandmark leftEye = face.getLandmark(FirebaseVisionFaceLandmark.LEFT_EYE);
+            if (leftEye != null) {
+                leftEyePos = leftEye.getPosition();
+            }
+            float smileProb = 0;
+            // If classification was enabled:
+            if (face.getSmilingProbability() != FirebaseVisionFace.UNCOMPUTED_PROBABILITY) {
+                smileProb = face.getSmilingProbability();
+            }
+            if (face.getRightEyeOpenProbability() != FirebaseVisionFace.UNCOMPUTED_PROBABILITY) {
+                float rightEyeOpenProb = face.getRightEyeOpenProbability();
+            }
+
+
+            // If face tracking was enabled:
+            if (face.getTrackingId() != FirebaseVisionFace.INVALID_ID) {
+                int id = face.getTrackingId();
+            }
+
+
             count++;
         }
         waitingDialog.dismiss();
