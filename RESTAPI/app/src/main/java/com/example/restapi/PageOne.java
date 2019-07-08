@@ -160,7 +160,6 @@ public class PageOne extends Fragment {
 
             try {
                 JSONTokener root = new JSONTokener(result);
-
                 JSONArray temp = (JSONArray) root.nextValue();
                 for (int i = 0; i < temp.length(); i++) {
                     System.out.println(temp.getJSONObject(i));

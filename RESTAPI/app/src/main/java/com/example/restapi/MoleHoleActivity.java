@@ -214,7 +214,7 @@ public class MoleHoleActivity extends AppCompatActivity {
     };
 
     public class timeCheck implements Runnable {
-        final int MAXTIME = 30;
+        final int MAXTIME = 10;
 
         @Override
         public void run() {

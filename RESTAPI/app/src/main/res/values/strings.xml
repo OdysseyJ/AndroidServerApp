@@ -10,4 +10,20 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="btn_new_game_desc">게임 시작</string>
+    <string name="btn_marker_mode_desc">표시하기 또는 열기</string>
+    <string name="sec">초</string>
+    <string name="result_title">걸린 시간</string>
+    <string name="difficulty">난이도</string>
+    <string name="size">셀크기</string>
+    <string name="df_easy">쉬움</string>
+    <string name="df_medium">보통</string>
+    <string name="df_hard">어려움</string>
+    <string name="sz_small">작음</string>
+    <string name="sz_medium">보통</string>
+    <string name="sz_large">큰</string>
+    <string name="setup">환경설정</string>
+    <string name="ok">확인</string>
+    <string name="cancel">취소</string>
+
 </resources>

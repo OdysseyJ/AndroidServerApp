@@ -80,8 +80,8 @@ public class PageThree extends Fragment {
         minebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), LandmarkRecognition.class);
-//                startActivityForResult(intent, 2222);
+                Intent intent = new Intent(getActivity(), MineActivity.class);
+                startActivityForResult(intent, 6666);
             }
         });
 

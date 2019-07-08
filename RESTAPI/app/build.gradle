@@ -57,6 +57,7 @@ dependencies {
     /*RxJava2 and RxAndroid2 for 1to50*/
     implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'com.google.api.client:google-api-client-http:1.2.3-alpha'
 }
 
 apply plugin: 'com.google.gms.google-services'
